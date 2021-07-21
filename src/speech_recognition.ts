@@ -68,6 +68,8 @@ export class spellListener {
 
     // we need to pass an xr instance so we can position the dragon
     async start(xr: BABYLON.WebXRDefaultExperience) {
+        var ignore_onend = false;
+        var start_timestamp = Date.now();
 
         speechRecognition.onresult = (speech: { results: { [x: string]: any; }; resultIndex: string | number; }) => {
             if (speech.results) {
@@ -87,7 +89,7 @@ export class spellListener {
                             const position = xr.baseExperience.camera.getFrontPosition(3);
                             position.y = 0;
                             this.env.magicDragon!.position = position;
-                           
+
                             if (this.env.instruction) {
                                 this.env.instruction!.isVisible = false;
                             }
@@ -144,12 +146,38 @@ export class spellListener {
             }
         };
 
-        speechRecognition.onerror = (error: any) => {
-            console.log(error);
+        speechRecognition.onerror = (event: any) => {
+            console.log(event);
+            if (event.error == 'no-speech') {
+                console.log('info_no_speech');
+                ignore_onend = true;
+            }
+            if (event.error == 'audio-capture') {
+                console.log('info_no_microphone');
+                ignore_onend = true;
+            }
+            if (event.error == 'not-allowed') {
+                if (event.timeStamp - start_timestamp < 100) {
+                    console.log('info_blocked');
+                } else {
+                    console.log('info_denied');
+                }
+                ignore_onend = true;
+            }
         };
 
         speechRecognition.onend = () => {
             console.log('--completing recognition--');
+            if (ignore_onend) {
+                console.log("ignore onend and return");
+                return;
+            }
+            // needed for mobile
+            console.log("why stop so soon, let's continue doing speech recognition");
+            setTimeout(() => {
+                speechRecognition.start();
+            }, 850);
+            return;
         };
         speechRecognition.start();
     }
