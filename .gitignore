@@ -1,0 +1,7 @@
+node_modules/
+dist/
+**/crash*.txt
+**/speech-token
+
+# for this project, we want the stuff in bin
+!bin/jenkit.js
