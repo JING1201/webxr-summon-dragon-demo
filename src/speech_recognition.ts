@@ -84,10 +84,12 @@ export class spellListener {
                         console.log("phrase detected:" + heardSpell);
                         if (heardSpell === spell || heardSpell === "good dragon") {
                             console.log("dragon spell");
-                            const position = xr.baseExperience.camera.getFrontPosition(3);
-                            position.y = 0;
-                            this.env.magicDragon!.position = position;
-                           
+                            if (xr.baseExperience.camera) {
+                                const position = xr.baseExperience.camera.getFrontPosition(3);
+                                position.y = 0;
+                                this.env.magicDragon!.position = position;
+                            }
+                            
                             if (this.env.instruction) {
                                 this.env.instruction!.isVisible = false;
                             }
