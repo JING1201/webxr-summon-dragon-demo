@@ -24,13 +24,10 @@ const createScene = async function () {
     const scene = new BABYLON.Scene(engine);
     const env = await environment.setup(scene, theCanvas);
     const listener = new spellListener(env);
-    const xr = await env.scene.createDefaultXRExperienceAsync({
-        // uiOptions: {
-        //     sessionMode: "immersive-ar",
-        // },
-    });
-    listener.start(xr);
 
+    const xr = await env.scene.createDefaultXRExperienceAsync({});
+    listener.start(xr);
+    
     return scene;
 };
 

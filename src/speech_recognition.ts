@@ -86,7 +86,7 @@ export class spellListener {
                         console.log("phrase detected:" + heardSpell);
                         if (heardSpell === spell || heardSpell === "good dragon") {
                             console.log("dragon spell");
-                            if (xr.baseExperience.camera) {
+                            if (xr?.baseExperience?.camera !== undefined) {
                                 const position = xr.baseExperience.camera.getFrontPosition(3);
                                 position.y = 0;
                                 this.env.magicDragon!.position = position;
@@ -105,7 +105,7 @@ export class spellListener {
                         }
 
                         // red dragon
-                        if (heardSpell === "go red") {
+                        if (heardSpell === "go red" || heardSpell === "go read" || heardSpell === "so red") { // workarounds since browser based stt is not that great
                             console.log("red dragon");
                             if (this.env.magicDragon!.isVisible()) {
                                 this.env.magicDragon!.hide();
