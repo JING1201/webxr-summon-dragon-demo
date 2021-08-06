@@ -1,6 +1,6 @@
 # Summon a dragon using TypeScript and your voice - Demo
 
-This repository contains the source code of the [demo](aka.ms/webxr-summon-dragon-demo) discussed in [this Mixed Reality Blog post](https://aka.ms/summondragonblog).
+This repository contains the source code of the [demo](https://aka.ms/webxr-summon-dragon-demo) discussed in [this Mixed Reality Blog post](https://aka.ms/summondragonblog).
 
 ## Asset Credits
 
